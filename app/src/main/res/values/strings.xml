@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NotesAppsRetrofit</string>
+    <string name="todo">To Do</string>
+    <string name="enter_a_note">Enter a note ....</string>
+    <string name="save">Simpan</string>
+    <string name="progress_dialog">Please Wait</string>
+</resources>
