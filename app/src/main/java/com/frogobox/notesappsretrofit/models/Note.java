@@ -1,5 +1,8 @@
 package com.frogobox.notesappsretrofit.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,7 +23,7 @@ import com.google.gson.annotations.SerializedName;
  * -----------------------------------------
  * id.amirisback.frogobox
  */
-public class Note {
+public class Note implements Parcelable {
 
     @Expose
     @SerializedName("id")
@@ -105,4 +108,46 @@ public class Note {
     public void setMessage(String message) {
         this.message = message;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.note);
+        dest.writeInt(this.color);
+        dest.writeString(this.date);
+        dest.writeValue(this.success);
+        dest.writeString(this.message);
+    }
+
+    public Note() {
+    }
+
+    protected Note(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
+        this.note = in.readString();
+        this.color = in.readInt();
+        this.date = in.readString();
+        this.success = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.message = in.readString();
+    }
+
+    public static final Parcelable.Creator<Note> CREATOR = new Parcelable.Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel source) {
+            return new Note(source);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
 }

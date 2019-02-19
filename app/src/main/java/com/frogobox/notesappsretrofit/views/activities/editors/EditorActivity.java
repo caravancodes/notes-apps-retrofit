@@ -3,6 +3,7 @@ package com.frogobox.notesappsretrofit.views.activities.editors;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,20 +11,26 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.frogobox.notesappsretrofit.R;
+import com.frogobox.notesappsretrofit.models.Note;
 import com.frogobox.notesappsretrofit.presenters.EditorPresenter;
 import com.frogobox.notesappsretrofit.views.interfaces.EditorView;
 import com.thebluealliance.spectrum.SpectrumPalette;
 
 public class EditorActivity extends AppCompatActivity implements EditorView {
 
-    EditText editTextTitle;
-    EditText editTextNotes;
-    ProgressDialog progressDialog;
-    SpectrumPalette palette;
+    public static final String EXTRA_DATA = "extra_data";
 
-    EditorPresenter presenter;
+    private EditText editTextTitle;
+    private EditText editTextNotes;
+    private ProgressDialog progressDialog;
+    private SpectrumPalette palette;
 
-    int color;
+    private EditorPresenter presenter;
+
+    private int color, id;
+    private String parcelTitle, parcelNotes;
+
+    private Menu actionMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,31 +49,88 @@ public class EditorActivity extends AppCompatActivity implements EditorView {
                 clr -> color = clr
         );
 
-        palette.setSelectedColor(getResources().getColor(R.color.white));
-        color = getResources().getColor(R.color.white);
+
         presenter = new EditorPresenter(this);
 
+        Intent intent = getIntent();
+
+
+        Note getIntentData = getIntent().getParcelableExtra(EXTRA_DATA);
+
+        if (getIntentData != null) {
+            id = getIntentData.getId();
+            color = getIntentData.getColor();
+            parcelNotes = getIntentData.getNote();
+            parcelTitle = getIntentData.getTitle();
+            setDataFromIntent();
+        }
+    }
+
+    private void setDataFromIntent() {
+
+        if (id!=0) {
+            editTextTitle.setText(parcelTitle);
+            editTextNotes.setText(parcelNotes);
+            palette.setSelectedColor(color);
+
+            getSupportActionBar().setTitle(getString(R.string.title_update));
+            readMode();
+
+        } else {
+            palette.setSelectedColor(getResources().getColor(R.color.orange));
+            color = getResources().getColor(R.color.orange);
+            editMode();
+        }
+
+    }
+
+    private void editMode() {
+        editTextTitle.setFocusableInTouchMode(true);
+        editTextNotes.setFocusableInTouchMode(true);
+        palette.setEnabled(true);
+    }
+
+    private void readMode() {
+        editTextTitle.setFocusableInTouchMode(false);
+        editTextNotes.setFocusableInTouchMode(false);
+        editTextTitle.setFocusable(false);
+        editTextNotes.setFocusable(false);
+        palette.setEnabled(false);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_add, menu);
+        actionMenu = menu;
+
+        if (id!=0) {
+            actionMenu.findItem(R.id.toolbar_menu_edit).setVisible(true);
+            actionMenu.findItem(R.id.toolbar_menu_delete).setVisible(true);
+            actionMenu.findItem(R.id.toolbar_menu_save).setVisible(false);
+            actionMenu.findItem(R.id.toolbar_menu_update).setVisible(false);
+        } else {
+            actionMenu.findItem(R.id.toolbar_menu_edit).setVisible(false);
+            actionMenu.findItem(R.id.toolbar_menu_delete).setVisible(false);
+            actionMenu.findItem(R.id.toolbar_menu_save).setVisible(true);
+            actionMenu.findItem(R.id.toolbar_menu_update).setVisible(false);
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        String isi_title = editTextTitle.getText().toString();
+        String isi_notes = editTextNotes.getText().toString();
+        int isi_color = this.color;
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
             case R.id.toolbar_menu_save:
-
-                String isi_title = editTextTitle.getText().toString();
-                String isi_notes = editTextNotes.getText().toString();
-                int isi_color = this.color;
 
                 if (isi_title.isEmpty()) {
                     editTextTitle.setError("Wajib di isi");
@@ -75,10 +139,26 @@ public class EditorActivity extends AppCompatActivity implements EditorView {
                 } else {
                     presenter.saveNotes(isi_title, isi_notes, isi_color);
                 }
-
                 finish();
-
                 break;
+
+            case R.id.toolbar_menu_edit:
+                editMode();
+                actionMenu.findItem(R.id.toolbar_menu_edit).setVisible(false);
+                actionMenu.findItem(R.id.toolbar_menu_delete).setVisible(false);
+                actionMenu.findItem(R.id.toolbar_menu_save).setVisible(false);
+                actionMenu.findItem(R.id.toolbar_menu_update).setVisible(true);
+                break;
+
+            case R.id.toolbar_menu_update:
+                if (isi_title.isEmpty()) {
+                    editTextTitle.setError("Wajib di isi");
+                } else if (isi_notes.isEmpty()) {
+                    editTextNotes.setError("Wajib di isi");
+                } else {
+                    presenter.updateNotes(id, isi_title, isi_notes, isi_color);
+                }
+                finish();
             default:
                 break;
         }
@@ -97,12 +177,13 @@ public class EditorActivity extends AppCompatActivity implements EditorView {
     }
 
     @Override
-    public void onAddSuccess(String message) {
+    public void onRequestSuccess(String message) {
         Toast.makeText(EditorActivity.this, message, Toast.LENGTH_SHORT).show();
+        setResult(RESULT_OK);
     }
 
     @Override
-    public void onAddError(String message) {
+    public void onRequestError(String message) {
         Toast.makeText(EditorActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 }

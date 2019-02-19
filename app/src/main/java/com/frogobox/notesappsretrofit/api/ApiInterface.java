@@ -40,4 +40,13 @@ public interface ApiInterface {
     @GET("notes.php")
     Call<List<Note>> getNotes();
 
+    @FormUrlEncoded
+    @POST("update.php")
+    Call<Note> updateNote(
+            @Field("id") int id,
+            @Field("title") String title,
+            @Field("note") String note,
+            @Field("color") int color
+    );
+
 }

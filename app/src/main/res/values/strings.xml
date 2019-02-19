@@ -5,4 +5,8 @@
     <string name="save">Simpan</string>
     <string name="progress_dialog">Please Wait</string>
     <string name="text_dates">19 Februari 2019</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Hapus</string>
+    <string name="update">update</string>
+    <string name="title_update">Update Title</string>
 </resources>

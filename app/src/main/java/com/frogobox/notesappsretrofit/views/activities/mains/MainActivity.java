@@ -1,5 +1,6 @@
 package com.frogobox.notesappsretrofit.views.activities.mains;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
+    private static final int INTENT_EDIT = 200;
+    private static final int INTENT_ADD = 100;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
 
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         FloatingActionButton fab = findViewById(R.id.add_notes);
         fab.setOnClickListener(view -> {
             Intent i = new Intent(this, EditorActivity.class);
-            startActivity(i);
+            startActivityForResult(i, INTENT_ADD);
         });
 
         presenter = new MainPresenter(this);
@@ -62,11 +65,28 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         itemClickListener = (
                 (view, position) -> {
-                    String title = note.get(position).getTitle();
-                    Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+
+                    Note data = note.get(position);
+                    Intent intentData = new Intent(MainActivity.this, EditorActivity.class);
+                    intentData.putExtra(EditorActivity.EXTRA_DATA, data);
+                    startActivityForResult(intentData, INTENT_EDIT);
                 }
 
                 );
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == INTENT_ADD && resultCode == RESULT_OK) {
+            presenter.getData();
+        } else if (requestCode == INTENT_EDIT && resultCode == RESULT_OK) {
+            presenter.getData();
+        }
+
+
 
     }
 
