@@ -1,4 +1,4 @@
-package com.frogobox.notesappsretrofit;
+package com.frogobox.notesappsretrofit.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

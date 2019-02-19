@@ -1,4 +1,6 @@
-package com.frogobox.notesappsretrofit;
+package com.frogobox.notesappsretrofit.api;
+
+import com.frogobox.notesappsretrofit.models.Note;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

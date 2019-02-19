@@ -1,10 +1,12 @@
-package com.frogobox.notesappsretrofit;
+package com.frogobox.notesappsretrofit.views.activities.mains;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.frogobox.notesappsretrofit.R;
+import com.frogobox.notesappsretrofit.views.activities.editors.EditorActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {

@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditorActivity">
+    tools:context=".views.activities.editors.EditorActivity"
+    android:background="@color/colorBackground">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,6 +32,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <com.thebluealliance.spectrum.SpectrumPalette
+            android:id="@+id/color_palete"
+            app:spectrum_columnCount="5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dimen_big"
+            android:layout_marginTop="@dimen/dimen_big"
+            app:spectrum_colors="@array/demo_colors"
+            android:layout_below="@id/note"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -1,4 +1,4 @@
-package com.frogobox.notesappsretrofit;
+package com.frogobox.notesappsretrofit.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

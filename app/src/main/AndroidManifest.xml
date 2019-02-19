@@ -12,12 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".EditorActivity"
+            android:name=".views.activities.editors.EditorActivity"
             android:label="Add New"
             android:theme="@style/EditorTheme"
             android:launchMode="singleTask"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".views.activities.mains.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
