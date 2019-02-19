@@ -76,6 +76,8 @@ public class EditorActivity extends AppCompatActivity implements EditorView {
                     presenter.saveNotes(isi_title, isi_notes, isi_color);
                 }
 
+                finish();
+
                 break;
             default:
                 break;

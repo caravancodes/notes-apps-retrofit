@@ -7,6 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".views.activities.mains.MainActivity">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_views"
+            tools:listitem="@layout/list_item_notes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_notes"
         android:src="@drawable/ic_add"

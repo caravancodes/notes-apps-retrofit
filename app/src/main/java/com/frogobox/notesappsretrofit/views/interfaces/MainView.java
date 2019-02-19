@@ -1,21 +1,15 @@
-package com.frogobox.notesappsretrofit.api;
+package com.frogobox.notesappsretrofit.views.interfaces;
 
 import com.frogobox.notesappsretrofit.models.Note;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
 
 /**
  * Created by Faisal Amir
  * FrogoBox Inc License
  * =========================================
  * NotesAppsRetrofit
- * Copyright (C) 18/02/2019.
+ * Copyright (C) 19/02/2019.
  * All rights reserved
  * -----------------------------------------
  * Name     : Muhammad Faisal Amir
@@ -27,17 +21,11 @@ import retrofit2.http.POST;
  * -----------------------------------------
  * id.amirisback.frogobox
  */
-public interface ApiInterface {
+public interface MainView {
 
-    @FormUrlEncoded
-    @POST("save.php")
-    Call<Note> saveNote (
-            @Field("title") String title,
-            @Field("note") String note,
-            @Field("color") int color
-            );
-
-    @GET("notes.php")
-    Call<List<Note>> getNotes();
+    void showLoading();
+    void hideLoading();
+    void onGetResult(List<Note> notes);
+    void onErrorLoading(String message);
 
 }

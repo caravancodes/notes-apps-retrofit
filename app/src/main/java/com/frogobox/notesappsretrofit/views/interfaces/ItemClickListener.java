@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
+package com.frogobox.notesappsretrofit.views.interfaces;
 
-<!--
+import android.view.View;
+
+/**
  * Created by Faisal Amir
  * FrogoBox Inc License
  * =========================================
  * NotesAppsRetrofit
- * Copyright (C) 18/02/2019.      
+ * Copyright (C) 19/02/2019.
  * All rights reserved
- * 
+ * -----------------------------------------
  * Name     : Muhammad Faisal Amir
  * E-mail   : faisalamircs@gmail.com
  * Line     : bullbee117
  * Phone    : 081357108568
  * Majors   : D3 Teknik Informatika 2016
  * Campus   : Telkom University
- * 
+ * -----------------------------------------
  * id.amirisback.frogobox
- * 
- -->
+ */
+public interface ItemClickListener {
 
-<resources>
-    <dimen name="dimen_big">16dp</dimen>
-    <dimen name="dimen_medium">8dp</dimen>
-    <dimen name="text_size_big">18sp</dimen>
-</resources>
+    void onItemClick(View v, int position);
+
+}
