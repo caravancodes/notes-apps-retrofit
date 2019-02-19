@@ -9,4 +9,5 @@
     <string name="delete">Hapus</string>
     <string name="update">update</string>
     <string name="title_update">Update Title</string>
+    <string name="wajib_di_isi">Wajib di isi</string>
 </resources>

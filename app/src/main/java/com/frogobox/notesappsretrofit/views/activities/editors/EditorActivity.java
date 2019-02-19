@@ -139,7 +139,6 @@ public class EditorActivity extends AppCompatActivity implements EditorView {
                 } else {
                     presenter.saveNotes(isi_title, isi_notes, isi_color);
                 }
-                finish();
                 break;
 
             case R.id.toolbar_menu_edit:
@@ -152,13 +151,18 @@ public class EditorActivity extends AppCompatActivity implements EditorView {
 
             case R.id.toolbar_menu_update:
                 if (isi_title.isEmpty()) {
-                    editTextTitle.setError("Wajib di isi");
+                    editTextTitle.setError(getString(R.string.wajib_di_isi));
                 } else if (isi_notes.isEmpty()) {
-                    editTextNotes.setError("Wajib di isi");
+                    editTextNotes.setError(getString(R.string.wajib_di_isi));
                 } else {
                     presenter.updateNotes(id, isi_title, isi_notes, isi_color);
                 }
-                finish();
+                break;
+
+            case R.id.toolbar_menu_delete:
+                    presenter.deleteNotes(id);
+                break;
+
             default:
                 break;
         }
@@ -180,6 +184,7 @@ public class EditorActivity extends AppCompatActivity implements EditorView {
     public void onRequestSuccess(String message) {
         Toast.makeText(EditorActivity.this, message, Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
+        finish();
     }
 
     @Override
