@@ -1,5 +1,5 @@
 ## notes-apps-retrofit
-- Project from tutorial youtube Haerul Mutaqqin [Click Here](https://www.youtube.com/c/HaerulMuttaqin/videos_
+- Project from tutorial youtube Haerul Mutaqqin [Click Here](https://www.youtube.com/c/HaerulMuttaqin/videos)
 
 ## ScreenShot Apps
 | UI 1 | UI 2 |
